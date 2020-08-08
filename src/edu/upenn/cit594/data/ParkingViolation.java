@@ -1,5 +1,52 @@
 package edu.upenn.cit594.data;
 
 public class ParkingViolation {
+	private final String timestamp;
+	private final int fine;
+	private final String violation;
+	private final String vehicleIdentifier;
+	private final String state;
+	private final String violationIdentifier;
+	private final String zipCode;
+	
+	public ParkingViolation(String timestamp, int fine, String violation, 
+			String vehicleIdentifier, String state, String violationIdentifier, String zipCode) {
+		this.timestamp = timestamp;
+		this.fine = fine;
+		this.violation = violation;
+		this.vehicleIdentifier = vehicleIdentifier;
+		this.state = state;
+		this.violationIdentifier = violationIdentifier;
+		this.zipCode = zipCode;
+	}
 
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public int getFine() {
+		return fine;
+	}
+
+	public String getViolation() {
+		return violation;
+	}
+
+	public String getVehicleIdentifier() {
+		return vehicleIdentifier;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public String getViolationIdentifier() {
+		return violationIdentifier;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+	
+	
 }
