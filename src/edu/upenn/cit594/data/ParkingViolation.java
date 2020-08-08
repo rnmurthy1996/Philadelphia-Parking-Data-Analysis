@@ -6,11 +6,11 @@ public class ParkingViolation {
 	private final String violation;
 	private final String vehicleIdentifier;
 	private final String state;
-	private final String violationIdentifier;
+	private final int violationIdentifier;
 	private final String zipCode;
 	
 	public ParkingViolation(String timestamp, int fine, String violation, 
-			String vehicleIdentifier, String state, String violationIdentifier, String zipCode) {
+			String vehicleIdentifier, String state, int violationIdentifier, String zipCode) {
 		this.timestamp = timestamp;
 		this.fine = fine;
 		this.violation = violation;
@@ -40,7 +40,7 @@ public class ParkingViolation {
 		return state;
 	}
 
-	public String getViolationIdentifier() {
+	public int getViolationIdentifier() {
 		return violationIdentifier;
 	}
 
