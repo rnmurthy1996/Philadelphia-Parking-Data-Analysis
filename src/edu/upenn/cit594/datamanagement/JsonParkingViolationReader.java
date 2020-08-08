@@ -50,12 +50,12 @@ public class JsonParkingViolationReader implements ParkingViolationReader {
 			// get the next JSON object
 			JSONObject pv = (JSONObject) iter.next();
 			// use the "get" method to print the value associated with that key
-			int ticketNumber = (int) pv.get("ticket_number");
+			int ticketNumber = Integer.parseInt(String.valueOf(pv.get("ticket_number")));
 			String plateID = String.valueOf(pv.get("plate_id"));
 			String date = String.valueOf(pv.get("date"));
 			String zipCode = String.valueOf(pv.get("zip_code"));
 			String violation = String.valueOf(pv.get("violation"));
-			int fine = (int) pv.get("fine");
+			int fine = Integer.parseInt(String.valueOf(pv.get("fine")));
 			String state = String.valueOf(pv.get("state"));
 			ParkingViolation parkingViolation = new ParkingViolation(date, fine, violation, plateID, state, ticketNumber, zipCode);
             parkingViolationList.add(parkingViolation);

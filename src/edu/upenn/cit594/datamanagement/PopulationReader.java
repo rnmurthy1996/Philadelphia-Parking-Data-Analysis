@@ -11,7 +11,13 @@ import edu.upenn.cit594.data.PopulationCenter;
 
 public class PopulationReader {
 	
-	public List<PopulationCenter> getAllPopulations(String fileName) {
+	protected String fileName;
+	
+	public PopulationReader(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	public List<PopulationCenter> getAllPopulations() {
 		List<PopulationCenter> populationList = new ArrayList<PopulationCenter>();
 		
 		String txtFile = fileName;

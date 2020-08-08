@@ -32,7 +32,10 @@ public class CsvParkingViolationReader implements ParkingViolationReader {
                 int ticketNumber = Integer.valueOf(pv[5]);
                 String plateID = pv[3];
                 String date = pv[0];
-                String zipCode = pv[6];
+                String zipCode = "null";
+                if(pv.length == 7) {
+                	zipCode = pv[6];
+                }
                 String violation = pv[2];
                 int fine = Integer.valueOf(pv[1]);
                 String state = pv[4];
