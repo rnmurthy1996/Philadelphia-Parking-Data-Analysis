@@ -20,8 +20,8 @@ public class Logger {
 		return instance;
 	}
 	
-	public void log(String text) {
-		String output = String.format("%d %s\n", System.currentTimeMillis(), text);
+	public void log(Object data) {
+		String output = String.format("%d %s\n", System.currentTimeMillis(), data.toString());
 		out.write(output);
 		out.flush();
 	}
