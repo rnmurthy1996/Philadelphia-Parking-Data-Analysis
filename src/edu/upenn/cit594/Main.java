@@ -8,7 +8,10 @@ import edu.upenn.cit594.datamanagement.ParkingViolationReader;
 import edu.upenn.cit594.datamanagement.PopulationReader;
 import edu.upenn.cit594.datamanagement.PropertyReader;
 import edu.upenn.cit594.logging.Logger;
+import edu.upenn.cit594.processor.DataProcessor;
 import edu.upenn.cit594.processor.ParkingViolationProcessor;
+import edu.upenn.cit594.processor.PopulationProcessor;
+import edu.upenn.cit594.processor.PropertyProcessor;
 import edu.upenn.cit594.ui.CommandLineUserInterface;
 
 public class Main {
@@ -48,9 +51,16 @@ public class Main {
 			pvReader = new JsonParkingViolationReader(args[1]);
 		}
 		
+		ParkingViolationProcessor pvProcessor = new ParkingViolationProcessor(pvReader);
+
 		PropertyReader propReader = new PropertyReader(args[2]);
+		PropertyProcessor propProcessor = new PropertyProcessor(propReader);
+		
 		PopulationReader popReader = new PopulationReader(args[3]);
-		ParkingViolationProcessor processor = new ParkingViolationProcessor(pvReader, propReader, popReader);
+		PopulationProcessor popProcessor = new PopulationProcessor(popReader);
+		
+		DataProcessor processor = new DataProcessor(pvProcessor, propProcessor, popProcessor);
+		
 		CommandLineUserInterface cli = new CommandLineUserInterface(processor);
 		
 		
