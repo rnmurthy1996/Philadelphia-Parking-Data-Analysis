@@ -53,10 +53,18 @@ public class PropertyReader {
                 // use comma as separator
                 String[] property = line.split(",");
                 ArrayList<String> rowVals = parser(property);
-                int totalLivableArea = Integer.parseInt(rowVals.get(tlaIndex));
-                int marketValue = Integer.parseInt(rowVals.get(mvIndex));
+                
+                String tla = rowVals.get(tlaIndex);
+                int totalLivableArea = strRead(tla);
+                
+                String mv = rowVals.get(mvIndex);
+                int marketValue = strRead(mv);
+                
                 String buildingCode = rowVals.get(bcIndex);
-                int zipCode = Integer.parseInt(rowVals.get(zcIndex));
+                
+                String zc = rowVals.get(zcIndex);
+                int zipCode = zipRead(zc);
+                
                 Property p = new Property(totalLivableArea, marketValue, buildingCode, zipCode);
                 propertyList.add(p);
         	}
@@ -98,5 +106,43 @@ public class PropertyReader {
         
         return rowValsFixed;
         
+	}
+	
+	public int strRead(String s) {
+        boolean num = true;
+        for(int i = 0; i < s.length(); i++) {
+        	if(!Character.isDigit(s.charAt(i))) {
+        		num = false;
+        	}
+        }
+        int val;
+        if(num && s.length() > 0) {
+        	val = Integer.parseInt(s);
+        }
+        else {
+        	val = -1;
+        }
+        return val;
+	}
+	
+	public int zipRead(String zc) {
+		boolean num = true;
+        for(int i = 0; i < zc.length(); i++) {
+        	if(!Character.isDigit(zc.charAt(i))) {
+        		num = false;
+        	}
+        }
+        int zipCode;
+        if(zc.length() == 0 || !num) {
+        	zipCode = -1;
+        }
+        else if(zc.length() < 5) {
+        	int l = zc.length();
+        	zipCode = Integer.parseInt(zc.substring(0,l));
+        }
+        else {
+        	zipCode = Integer.parseInt(zc.substring(0,5));
+        } 
+        return zipCode;
 	}
 }
