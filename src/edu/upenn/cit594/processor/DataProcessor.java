@@ -1,7 +1,10 @@
 package edu.upenn.cit594.processor;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+
+import edu.upenn.cit594.data.PopulationCenter;
 
 public class DataProcessor {
 
@@ -11,6 +14,8 @@ public class DataProcessor {
 	
 	// caches
 	private int totalPopulation = -1;
+	private Map<String, Double> finesPerCapitaCache;
+	
 	
 	public DataProcessor(ParkingViolationProcessor pvProcessor, PropertyProcessor propProcessor,
 			PopulationProcessor popProcessor) {
@@ -27,7 +32,26 @@ public class DataProcessor {
 	}
 	
 	public Map<String, Double> calculateTotalFinesPerCapita() {
-		return null;
+		if (finesPerCapitaCache != null) {
+			return finesPerCapitaCache;
+		}
+		
+		Map<String, Integer> totalFinesByZipCode = pvProcessor.getTotalFinesByZipCode();
+		List<PopulationCenter> populationCenters = popProcessor.getPopulationCenters();
+		
+		Map<String, Double> totalFinesPerCapita = new TreeMap<>();
+		
+		for (PopulationCenter pc : populationCenters) {
+			String zipCode = String.valueOf(pc.getZipCode());  // shouldn't zip codes be strings?
+			if (totalFinesByZipCode.containsKey(zipCode)) {
+				double finesPerCapita = (double)totalFinesByZipCode.get(zipCode) / pc.getPopulation();
+				totalFinesPerCapita.put(zipCode, finesPerCapita);
+			}
+		}
+		
+		finesPerCapitaCache = totalFinesPerCapita;
+		
+		return totalFinesPerCapita;
 	}
 	
 	public double calculateAverageMarketValue(String zipCode) {

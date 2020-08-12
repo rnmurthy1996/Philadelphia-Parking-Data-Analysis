@@ -21,4 +21,7 @@ public class PopulationProcessor {
 		return totalPopulation;
 	}
 
+	public List<PopulationCenter> getPopulationCenters() {
+		return populationCenters;
+	}
 }

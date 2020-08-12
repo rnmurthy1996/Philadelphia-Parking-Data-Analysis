@@ -24,6 +24,8 @@ public class PropertyProcessor {
 		int zipCount = 0;
 		double totalMarketValue = 0;
 		for(int i = 0; i < properties.size(); i++) {
+			System.out.println(properties.get(i).getZipCode());
+			System.out.println(properties.get(i).getMarketValue());
 			if(properties.get(i).getZipCode() == zipCode && properties.get(i).getMarketValue() != -1) {
 				zipCount++;
 				totalMarketValue += properties.get(i).getMarketValue();
