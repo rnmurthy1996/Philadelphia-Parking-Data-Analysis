@@ -93,7 +93,7 @@ public class CommandLineUserInterface {
 	private void executeOptionTwo() {
 		Map<String, Double> finesPerCapitaByZip = processor.calculateTotalFinesPerCapita();
 		
-		DecimalFormat format = new DecimalFormat("#.####");
+		DecimalFormat format = new DecimalFormat("0.0000");
 		format.setRoundingMode(RoundingMode.FLOOR);
 		
 		for (String zip : finesPerCapitaByZip.keySet()) {
