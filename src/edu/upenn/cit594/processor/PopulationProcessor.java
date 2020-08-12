@@ -12,5 +12,13 @@ public class PopulationProcessor {
 	public PopulationProcessor(PopulationReader popReader) {
 		populationCenters = popReader.getAllPopulations();
 	}
+	
+	public int sumTotalPopulation() {
+		int totalPopulation = 0;
+		for (PopulationCenter pc : populationCenters) {
+			totalPopulation += pc.getPopulation();
+		}
+		return totalPopulation;
+	}
 
 }

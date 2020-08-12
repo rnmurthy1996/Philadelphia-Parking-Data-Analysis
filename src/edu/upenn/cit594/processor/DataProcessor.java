@@ -8,6 +8,9 @@ public class DataProcessor {
 	private PropertyProcessor propProcessor;
 	private PopulationProcessor popProcessor;
 	
+	// caches
+	private int totalPopulation = -1;
+	
 	public DataProcessor(ParkingViolationProcessor pvProcessor, PropertyProcessor propProcessor,
 			PopulationProcessor popProcessor) {
 		this.pvProcessor = pvProcessor;
@@ -16,7 +19,10 @@ public class DataProcessor {
 	}
 
 	public int calculateTotalPopulation() {
-		return -1;
+		if (totalPopulation < 0) {
+			totalPopulation = popProcessor.sumTotalPopulation();
+		}
+		return totalPopulation;
 	}
 	
 	public Map<String, Double> calculateTotalFinesPerCapita() {
