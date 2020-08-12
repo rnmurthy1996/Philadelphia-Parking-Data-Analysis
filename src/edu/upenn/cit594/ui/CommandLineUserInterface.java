@@ -103,10 +103,12 @@ public class CommandLineUserInterface {
 	
 	private void executeOptionThree() {
 		String zip = readZipCodeSelection();
+		System.out.println(processor.calculateAverageMarketValue(zip));
 	}
 
 	private void executeOptionFour() {
 		String zip = readZipCodeSelection();
+		System.out.println(processor.calculateAverageTotalLiveableArea(zip));
 	}
 
 	private void executeOptionFive() {

@@ -1,5 +1,6 @@
 package edu.upenn.cit594.processor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class DataProcessor {
@@ -23,12 +24,12 @@ public class DataProcessor {
 		return null;
 	}
 	
-	public int calculateAverageMarketValue() {
-		return -1;
+	public double calculateAverageMarketValue(String zipCode) {
+		return propProcessor.averageMarketValue(Integer.parseInt(zipCode));
 	}
 	
-	public int calculateAverageTotalLiveableArea() {
-		return -1;
+	public double calculateAverageTotalLiveableArea(String zipCode) {
+		return propProcessor.averageTotalArea(Integer.parseInt(zipCode));
 	}
 	
 	public int calculateTotalResidentialMarketValuePerCapita() {
