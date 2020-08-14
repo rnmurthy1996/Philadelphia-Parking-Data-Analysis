@@ -1,5 +1,6 @@
 package edu.upenn.cit594.processor;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,6 +16,9 @@ public class DataProcessor {
 	// caches
 	private int totalPopulation = -1;
 	private Map<String, Double> finesPerCapitaCache;
+	private HashMap<Integer, Double> averageMarketValueCache = new HashMap<Integer, Double>();
+	private HashMap<Integer, Double> averageTotalAreaCache = new HashMap<Integer, Double>();
+	private HashMap<Integer, Double> mvPerCapitaCache = new HashMap<Integer, Double>();
 	
 	
 	public DataProcessor(ParkingViolationProcessor pvProcessor, PropertyProcessor propProcessor,
@@ -55,14 +59,41 @@ public class DataProcessor {
 	}
 	
 	public double calculateAverageMarketValue(String zipCode) {
-		return propProcessor.averageMarketValue(Integer.parseInt(zipCode));
+		if(averageMarketValueCache.containsKey(Integer.parseInt(zipCode))) {
+			System.out.println("cache");
+			return averageMarketValueCache.get(Integer.parseInt(zipCode));
+		}
+		return propProcessor.averageMarketValue(Integer.parseInt(zipCode), averageMarketValueCache);
 	}
 	
 	public double calculateAverageTotalLiveableArea(String zipCode) {
-		return propProcessor.averageTotalArea(Integer.parseInt(zipCode));
+		if(averageTotalAreaCache.containsKey(Integer.parseInt(zipCode))) {
+			System.out.println("cache");
+			return averageTotalAreaCache.get(Integer.parseInt(zipCode));
+		}
+		return propProcessor.averageTotalArea(Integer.parseInt(zipCode), averageTotalAreaCache);
 	}
 	
-	public int calculateTotalResidentialMarketValuePerCapita() {
-		return -1;
+	public double calculateTotalResidentialMarketValuePerCapita(String zipCode) {
+		
+		if(mvPerCapitaCache.containsKey(Integer.parseInt(zipCode))) {
+			System.out.println("cache");
+			return mvPerCapitaCache.get(Integer.parseInt(zipCode));
+		}
+		
+		double totalMarketValue = propProcessor.getTotalMarketValue(Integer.parseInt(zipCode));
+		
+		int totalPopulation = 0;
+		List<PopulationCenter> populationCenters = popProcessor.getPopulationCenters();
+		for (PopulationCenter pc : populationCenters) {
+			String zc = String.valueOf(pc.getZipCode());  // shouldn't zip codes be strings?
+			if(zc.contentEquals(zipCode)) {
+				totalPopulation = pc.getPopulation();
+			}
+		}
+		double totalMarketValuePerCapita = totalMarketValue/totalPopulation;
+		mvPerCapitaCache.put(Integer.parseInt(zipCode), totalMarketValuePerCapita);
+		return totalMarketValuePerCapita;
+		
 	}
 }

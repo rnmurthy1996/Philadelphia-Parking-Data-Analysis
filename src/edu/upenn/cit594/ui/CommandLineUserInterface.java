@@ -113,6 +113,7 @@ public class CommandLineUserInterface {
 
 	private void executeOptionFive() {
 		String zip = readZipCodeSelection();
+		System.out.println(processor.calculateTotalResidentialMarketValuePerCapita(zip));
 	}
 	
 	private void executeOptionSix() {

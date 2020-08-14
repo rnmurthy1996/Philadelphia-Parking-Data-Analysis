@@ -10,45 +10,32 @@ public class PropertyProcessor {
 
 	private List<Property> properties;
 	
-	protected HashMap<Integer, Double> averageMarketValueCache = new HashMap<Integer, Double>();
-	protected HashMap<Integer, Double> averageTotalAreaCache = new HashMap<Integer, Double>();
-	
 	public PropertyProcessor(PropertyReader propReader) {
 		properties = propReader.getAllProperties();
 	}
 	
-	public double averageMarketValue(int zipCode) {
-		if(averageMarketValueCache.containsKey(zipCode)) {
-			return averageMarketValueCache.get(zipCode);
-		}
-		int zipCount = 0;
-		double totalMarketValue = 0;
-		for(int i = 0; i < properties.size(); i++) {
-			if(properties.get(i).getZipCode() == zipCode && properties.get(i).getMarketValue() != -1) {
-				zipCount++;
-				totalMarketValue += properties.get(i).getMarketValue();
-			}
-		}
-		double averageMarketValue = totalMarketValue/zipCount;
-		averageMarketValueCache.put(zipCode, averageMarketValue);
-		return averageMarketValue;
+	public double averageMarketValue(int zipCode, HashMap<Integer, Double> averageMarketValueCache) {
+		
+		ExecuteZipMetric execute = new ExecuteZipMetric(new AverageMarketValue(properties));
+		return execute.executeStrategy(zipCode, averageMarketValueCache);
+		
 	}
 	
-	public double averageTotalArea(int zipCode) {
-		if(averageTotalAreaCache.containsKey(zipCode)) {
-			return averageTotalAreaCache.get(zipCode);
-		}
-		int zipCount = 0;
-		double totalArea = 0;
+	public double averageTotalArea(int zipCode, HashMap<Integer, Double> averageTotalAreaCache) {
+		
+		ExecuteZipMetric execute = new ExecuteZipMetric(new AverageTotalArea(properties));
+		return execute.executeStrategy(zipCode, averageTotalAreaCache);
+	}
+	
+	public double getTotalMarketValue(int zipCode) {
+		
+		double totalMarketValue = 0;
 		for(int i = 0; i < properties.size(); i++) {
 			if(properties.get(i).getZipCode() == zipCode && properties.get(i).getTotalLivableArea() != -1) {
-				zipCount++;
-				totalArea += properties.get(i).getTotalLivableArea();
+				totalMarketValue += properties.get(i).getTotalLivableArea();
 			}
 		}
-		double averageTotalArea = totalArea/zipCount;
-		averageTotalAreaCache.put(zipCode, averageTotalArea);
-		return averageTotalArea;
+		return totalMarketValue;
 	}
 
 }
