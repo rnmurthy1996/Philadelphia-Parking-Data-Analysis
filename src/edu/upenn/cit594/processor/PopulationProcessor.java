@@ -24,4 +24,13 @@ public class PopulationProcessor {
 	public List<PopulationCenter> getPopulationCenters() {
 		return populationCenters;
 	}
+	
+	public int getPopulation(String zipCode) {
+		for (PopulationCenter p : populationCenters) {
+			if (String.valueOf(p.getZipCode()).equals(zipCode)) {
+				return p.getPopulation();
+			}
+		}
+		return 0;
+	}
 }

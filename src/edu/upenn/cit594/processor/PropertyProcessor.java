@@ -38,5 +38,27 @@ public class PropertyProcessor {
 		return totalMarketValue;
 	}
 
+	public double getCommercialPercentage(String zipCode) {
+		int commercialCount = 0;
+		int totalCount = 0;
+		
+		for (Property p : properties) {
+			if (!p.getZipCode().equals(zipCode)) {
+				continue;
+			}
+			if (p.getCategoryCode() != -1) {
+				totalCount++;
+			}
+			if (p.getCategoryCode() == 4) {
+				commercialCount++;
+			}
+		}
+		
+		if (totalCount == 0) { // prevent divide by 0 issues
+			return 0;
+		}
+		
+		return (double)commercialCount / totalCount;
+	}
 }
 
