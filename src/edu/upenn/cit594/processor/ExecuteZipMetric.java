@@ -10,7 +10,7 @@ public class ExecuteZipMetric {
 		this.azm = azm;
 	}
 	
-	public double executeStrategy(int zipCode, HashMap<Integer, Double> averageCache){
+	public double executeStrategy(String zipCode, HashMap<String, Double> averageCache){
 		return azm.getZipMetric(zipCode, averageCache);
 	}
 }

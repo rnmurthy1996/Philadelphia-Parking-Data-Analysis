@@ -20,12 +20,12 @@ public class AverageMarketValue implements AverageZipMetric {
 		this.properties = properties;
 	}
 	
-	public double getZipMetric(int zipCode, HashMap<Integer, Double> averageMarketValueCache) {
+	public double getZipMetric(String zipCode, HashMap<String, Double> averageMarketValueCache) {
 			
 			int zipCount = 0;
 			double totalMarketValue = 0;
 			for(int i = 0; i < properties.size(); i++) {
-				if(properties.get(i).getZipCode().contentEquals(String.valueOf(zipCode)) && properties.get(i).getMarketValue() != -1) {
+				if(properties.get(i).getZipCode().contentEquals(zipCode) && properties.get(i).getMarketValue() != -1) {
 					zipCount++;
 					totalMarketValue += properties.get(i).getMarketValue();
 				}

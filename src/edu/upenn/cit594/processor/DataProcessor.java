@@ -16,9 +16,9 @@ public class DataProcessor {
 	// caches
 	private int totalPopulation = -1;
 	private Map<String, Double> finesPerCapitaCache;
-	private HashMap<Integer, Double> averageMarketValueCache = new HashMap<Integer, Double>();
-	private HashMap<Integer, Double> averageTotalAreaCache = new HashMap<Integer, Double>();
-	private HashMap<Integer, Double> mvPerCapitaCache = new HashMap<Integer, Double>();
+	private HashMap<String, Double> averageMarketValueCache = new HashMap<String, Double>();
+	private HashMap<String, Double> averageTotalAreaCache = new HashMap<String, Double>();
+	private HashMap<String, Double> mvPerCapitaCache = new HashMap<String, Double>();
 	private Map<String, Double> violationsPerCapitaCache = new HashMap<String, Double>();
 	private Map<String, Double> commercialPercentageCache = new HashMap<String, Double>();
 	
@@ -48,7 +48,7 @@ public class DataProcessor {
 		Map<String, Double> totalFinesPerCapita = new TreeMap<>();
 		
 		for (PopulationCenter pc : populationCenters) {
-			String zipCode = String.valueOf(pc.getZipCode());  // shouldn't zip codes be strings?
+			String zipCode = pc.getZipCode();
 			if (totalFinesByZipCode.containsKey(zipCode)) {
 				double finesPerCapita = (double)totalFinesByZipCode.get(zipCode) / pc.getPopulation();
 				totalFinesPerCapita.put(zipCode, finesPerCapita);
@@ -61,37 +61,37 @@ public class DataProcessor {
 	}
 	
 	public double calculateAverageMarketValue(String zipCode) {
-		if(averageMarketValueCache.containsKey(Integer.parseInt(zipCode))) {
-			return averageMarketValueCache.get(Integer.parseInt(zipCode));
+		if(averageMarketValueCache.containsKey(zipCode)) {
+			return averageMarketValueCache.get(zipCode);
 		}
-		return propProcessor.averageMarketValue(Integer.parseInt(zipCode), averageMarketValueCache);
+		return propProcessor.averageMarketValue(zipCode, averageMarketValueCache);
 	}
 	
 	public double calculateAverageTotalLiveableArea(String zipCode) {
-		if(averageTotalAreaCache.containsKey(Integer.parseInt(zipCode))) {
-			return averageTotalAreaCache.get(Integer.parseInt(zipCode));
+		if(averageTotalAreaCache.containsKey(zipCode)) {
+			return averageTotalAreaCache.get(zipCode);
 		}
-		return propProcessor.averageTotalArea(Integer.parseInt(zipCode), averageTotalAreaCache);
+		return propProcessor.averageTotalArea(zipCode, averageTotalAreaCache);
 	}
 	
 	public double calculateTotalResidentialMarketValuePerCapita(String zipCode) {
 		
-		if(mvPerCapitaCache.containsKey(Integer.parseInt(zipCode))) {
-			return mvPerCapitaCache.get(Integer.parseInt(zipCode));
+		if(mvPerCapitaCache.containsKey(zipCode)) {
+			return mvPerCapitaCache.get(zipCode);
 		}
 		
-		double totalMarketValue = propProcessor.getTotalMarketValue(Integer.parseInt(zipCode));
+		double totalMarketValue = propProcessor.getTotalMarketValue(zipCode);
 		
 		int totalPopulation = 0;
 		List<PopulationCenter> populationCenters = popProcessor.getPopulationCenters();
 		for (PopulationCenter pc : populationCenters) {
-			String zc = String.valueOf(pc.getZipCode());  // shouldn't zip codes be strings?
+			String zc = pc.getZipCode();
 			if(zc.contentEquals(zipCode)) {
 				totalPopulation = pc.getPopulation();
 			}
 		}
 		double totalMarketValuePerCapita = totalMarketValue/totalPopulation;
-		mvPerCapitaCache.put(Integer.parseInt(zipCode), totalMarketValuePerCapita);
+		mvPerCapitaCache.put(zipCode, totalMarketValuePerCapita);
 		return totalMarketValuePerCapita;
 	}
 	

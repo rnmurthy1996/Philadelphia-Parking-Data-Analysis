@@ -8,5 +8,5 @@ import java.util.HashMap;
  */
 
 public interface AverageZipMetric {
-	public double getZipMetric(int zipCode, HashMap<Integer, Double> cache);
+	public double getZipMetric(String zipCode, HashMap<String, Double> cache);
 }

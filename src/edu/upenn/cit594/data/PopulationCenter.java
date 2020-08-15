@@ -5,15 +5,15 @@ package edu.upenn.cit594.data;
  */
 
 public class PopulationCenter {
-	private final int zipCode;
+	private final String zipCode;
 	private final int population;
 	
-	public PopulationCenter(int zipCode, int population) {
+	public PopulationCenter(String zipCode, int population) {
 		this.zipCode = zipCode;
 		this.population = population;
 	}
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 

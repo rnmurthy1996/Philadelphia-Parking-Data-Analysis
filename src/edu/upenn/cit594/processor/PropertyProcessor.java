@@ -14,24 +14,24 @@ public class PropertyProcessor {
 		properties = propReader.getAllProperties();
 	}
 	
-	public double averageMarketValue(int zipCode, HashMap<Integer, Double> averageMarketValueCache) {
+	public double averageMarketValue(String zipCode, HashMap<String, Double> averageMarketValueCache) {
 		
 		ExecuteZipMetric execute = new ExecuteZipMetric(new AverageMarketValue(properties));
 		return execute.executeStrategy(zipCode, averageMarketValueCache);
 		
 	}
 	
-	public double averageTotalArea(int zipCode, HashMap<Integer, Double> averageTotalAreaCache) {
+	public double averageTotalArea(String zipCode, HashMap<String, Double> averageTotalAreaCache) {
 		
 		ExecuteZipMetric execute = new ExecuteZipMetric(new AverageTotalArea(properties));
 		return execute.executeStrategy(zipCode, averageTotalAreaCache);
 	}
 	
-	public double getTotalMarketValue(int zipCode) {
+	public double getTotalMarketValue(String zipCode) {
 		
 		double totalMarketValue = 0;
 		for(int i = 0; i < properties.size(); i++) {
-			if(properties.get(i).getZipCode().contentEquals(String.valueOf(zipCode)) && properties.get(i).getTotalLivableArea() != -1) {
+			if(properties.get(i).getZipCode().contentEquals(zipCode) && properties.get(i).getTotalLivableArea() != -1) {
 				totalMarketValue += properties.get(i).getTotalLivableArea();
 			}
 		}

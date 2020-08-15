@@ -35,10 +35,9 @@ public class PopulationReader {
             while ((line = br.readLine()) != null) {
 
                 // use comma as separator
-                String[] zip = line.split(" ");
-                int zipCode = Integer.valueOf(zip[0]);
-                int population = Integer.valueOf(zip[1]);
-                PopulationCenter populationCenter = new PopulationCenter(zipCode, population);
+                String[] tokens = line.split(" ");
+                int population = Integer.valueOf(tokens[1]);
+                PopulationCenter populationCenter = new PopulationCenter(tokens[0], population);
                 populationList.add(populationCenter);
             }
 
