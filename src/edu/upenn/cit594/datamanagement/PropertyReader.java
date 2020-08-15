@@ -14,6 +14,7 @@ import java.util.List;
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.PopulationCenter;
 import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.logging.Logger;
 
 public class PropertyReader {
 
@@ -28,6 +29,8 @@ public class PropertyReader {
         String line = "";
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        	
+        	Logger.getInstance().log(fileName);
 
         	int tlaIndex = -1;
         	int mvIndex = -1;

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.upenn.cit594.data.ParkingViolation;
+import edu.upenn.cit594.logging.Logger;
 
 public class CsvParkingViolationReader implements ParkingViolationReader {
 	
@@ -25,6 +26,8 @@ public class CsvParkingViolationReader implements ParkingViolationReader {
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
+        	Logger.getInstance().log(fileName);
+        	
             while ((line = br.readLine()) != null) {
 
                 // use comma as separator

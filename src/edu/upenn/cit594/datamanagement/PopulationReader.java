@@ -8,6 +8,7 @@ import java.util.List;
 
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.PopulationCenter;
+import edu.upenn.cit594.logging.Logger;
 
 public class PopulationReader {
 	
@@ -24,6 +25,8 @@ public class PopulationReader {
         String line = "";
 
         try (BufferedReader br = new BufferedReader(new FileReader(txtFile))) {
+        	
+        	Logger.getInstance().log(fileName);
 
             while ((line = br.readLine()) != null) {
 

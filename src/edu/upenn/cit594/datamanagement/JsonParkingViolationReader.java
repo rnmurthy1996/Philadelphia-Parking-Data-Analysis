@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import edu.upenn.cit594.data.ParkingViolation;
+import edu.upenn.cit594.logging.Logger;
 
 public class JsonParkingViolationReader implements ParkingViolationReader {
 
@@ -32,6 +33,7 @@ public class JsonParkingViolationReader implements ParkingViolationReader {
 		JSONArray tweets = null;
 		try {
 			tweets = (JSONArray)parser.parse(new FileReader(fileName));
+			Logger.getInstance().log(fileName);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
