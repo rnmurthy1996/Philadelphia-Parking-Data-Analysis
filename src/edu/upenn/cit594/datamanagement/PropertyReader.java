@@ -31,7 +31,7 @@ public class PropertyReader {
 
         	int tlaIndex = -1;
         	int mvIndex = -1;
-        	int bcIndex = -1;
+        	int ccIndex = -1;
         	int zcIndex = -1;
         	
             String headerLine = br.readLine();
@@ -43,8 +43,8 @@ public class PropertyReader {
             	if(headerVals[i].contentEquals("market_value")) {
             		mvIndex = i;
             	}
-            	if(headerVals[i].contentEquals("building_code")) {
-            		bcIndex = i;
+            	if(headerVals[i].contentEquals("category_code")) {
+            		ccIndex = i;
             	}
             	if(headerVals[i].contentEquals("zip_code")) {
             		zcIndex = i;
@@ -64,12 +64,13 @@ public class PropertyReader {
                 String mv = rowVals.get(mvIndex);
                 int marketValue = strRead(mv);
                 
-                String buildingCode = rowVals.get(bcIndex);
+                String categoryCodeStr = rowVals.get(ccIndex);
+                int categoryCode = categoryCodeStr.length() == 0 ? -1 : Integer.parseInt(categoryCodeStr);
                 
                 String zc = rowVals.get(zcIndex);
                 String zipCode = zipRead(zc);
                 
-                Property p = new Property(totalLivableArea, marketValue, buildingCode, zipCode);
+                Property p = new Property(totalLivableArea, marketValue, categoryCode, zipCode);
                 propertyList.add(p);
         	}
         	
@@ -80,14 +81,14 @@ public class PropertyReader {
         return propertyList;
 	}
 	
-	public ArrayList<String> parser(String test) {
+	public ArrayList<String> parser(String line) {
 		ArrayList<String> tokens = new ArrayList<>();
         String token = "";
         boolean insideQuotes = false;
 
-        for (int i = 0; i < test.length() - 1; i++) {
-            char currentChar = test.charAt(i);
-            char nextChar = test.charAt(i + 1);
+        for (int i = 0; i < line.length() - 1; i++) {
+            char currentChar = line.charAt(i);
+            char nextChar = line.charAt(i + 1);
 
             if (currentChar == '"' && insideQuotes && nextChar == ',') {
                 token += currentChar;
@@ -112,7 +113,7 @@ public class PropertyReader {
             }
         }
 
-        token += test.charAt(test.length() - 1); // consume last char in input string
+        token += line.charAt(line.length() - 1); // consume last char in input string
         tokens.add(token);
                
         return tokens;
