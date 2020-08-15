@@ -1,5 +1,9 @@
 package edu.upenn.cit594.data;
 
+/*
+ * PopulationCenter class that defines the variables for a population center.
+ */
+
 public class PopulationCenter {
 	private final int zipCode;
 	private final int population;

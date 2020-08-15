@@ -1,5 +1,9 @@
 package edu.upenn.cit594.data;
 
+/*
+ * ParkingViolation class that defines the variables for a parking violation.
+ */
+
 public class ParkingViolation {
 	private final String timestamp;
 	private final int fine;

@@ -8,6 +8,10 @@ import java.util.List;
 
 import edu.upenn.cit594.data.ParkingViolation;
 
+/*
+ * CsvParkingViolationReader class that reads in all parking violations from parking.csv and adds them to a list.
+ */
+
 public class CsvParkingViolationReader implements ParkingViolationReader {
 	
 	protected String fileName;

@@ -9,6 +9,10 @@ import java.util.List;
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.PopulationCenter;
 
+/*
+ * PopulationReader class that reads in all population centers from population.txt and adds them to a list.
+ */
+
 public class PopulationReader {
 	
 	protected String fileName;

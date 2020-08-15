@@ -14,6 +14,10 @@ import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.PopulationCenter;
 import edu.upenn.cit594.data.Property;
 
+/*
+ * PropertyReader class that reads in all properties from properties.csv and adds them to a list.
+ */
+
 public class PropertyReader {
 
 	protected String fileName;
@@ -82,6 +86,7 @@ public class PropertyReader {
         return propertyList;
 	}
 	
+	//Method to parse each line of properties.csv
 	public ArrayList<String> parser(String[] strArr) {
 		ArrayList<String> rowVals = new ArrayList<String>();
         for(int i = 0; i < strArr.length; i++) {
@@ -114,6 +119,7 @@ public class PropertyReader {
         
 	}
 	
+	//Method used to read in market value or total livable area from csv file and convert it to format we want.
 	public int strRead(String s) {
         boolean num = true;
         for(int i = 0; i < s.length(); i++) {
@@ -131,6 +137,7 @@ public class PropertyReader {
         return val;
 	}
 	
+	//Method used to read in zip code from csv file and convert it to format we want.
 	public String zipRead(String zc) {
 		boolean num = true;
 		String zipCode;
