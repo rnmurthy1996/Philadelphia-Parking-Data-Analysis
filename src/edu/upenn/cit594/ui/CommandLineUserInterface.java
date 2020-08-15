@@ -81,6 +81,13 @@ public class CommandLineUserInterface {
 	private String readZipCodeSelection() {
 		System.out.println("Please enter a 5 digit zip code.");
 		String zipCode = inputStream.next();
+		for(int i = 0; i < zipCode.length(); i++) {
+			if(!Character.isDigit(zipCode.charAt(i))) {
+				System.out.println("Incorrect zip code format. Must be a number.");
+				System.exit(0);
+			}
+		}
+		
 		Logger.getInstance().log(zipCode);
 		return zipCode;
 	}

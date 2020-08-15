@@ -62,7 +62,6 @@ public class DataProcessor {
 	
 	public double calculateAverageMarketValue(String zipCode) {
 		if(averageMarketValueCache.containsKey(Integer.parseInt(zipCode))) {
-			System.out.println("cache");
 			return averageMarketValueCache.get(Integer.parseInt(zipCode));
 		}
 		return propProcessor.averageMarketValue(Integer.parseInt(zipCode), averageMarketValueCache);
