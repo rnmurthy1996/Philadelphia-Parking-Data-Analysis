@@ -26,8 +26,6 @@ public class AverageMarketValue implements AverageZipMetric {
 					totalMarketValue += properties.get(i).getMarketValue();
 				}
 			}
-			System.out.println(zipCount);
-			System.out.println(totalMarketValue);
 			double averageMarketValue = totalMarketValue/zipCount;
 			averageMarketValueCache.put(zipCode, averageMarketValue);
 			return averageMarketValue;
