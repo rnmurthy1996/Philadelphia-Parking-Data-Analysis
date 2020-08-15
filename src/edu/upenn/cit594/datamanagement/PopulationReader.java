@@ -10,6 +10,10 @@ import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.PopulationCenter;
 import edu.upenn.cit594.logging.Logger;
 
+/*
+ * PopulationReader class that reads in all population centers from population.txt and adds them to a list.
+ */
+
 public class PopulationReader {
 	
 	protected String fileName;

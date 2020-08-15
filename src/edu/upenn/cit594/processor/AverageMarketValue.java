@@ -8,6 +8,10 @@ import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.datamanagement.PopulationReader;
 import edu.upenn.cit594.datamanagement.PropertyReader;
 
+/*
+ * AverageMarketValue class that calculates the average market value for a given zip code.
+ */
+
 public class AverageMarketValue implements AverageZipMetric {
 	
 	private List<Property> properties;

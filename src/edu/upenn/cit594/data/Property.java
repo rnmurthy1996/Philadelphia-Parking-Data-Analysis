@@ -1,5 +1,9 @@
 package edu.upenn.cit594.data;
 
+/*
+ * Property class that defines the variables for a property.
+ */
+
 public class Property {
 	private final int totalLivableArea;
 	private final int marketValue;

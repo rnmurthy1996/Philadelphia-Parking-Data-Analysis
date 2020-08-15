@@ -15,6 +15,10 @@ import org.json.simple.parser.ParseException;
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.logging.Logger;
 
+/*
+ * JsonParkingViolationReader class that reads in all parking violations from parking.json and adds them to a list.
+ */
+
 public class JsonParkingViolationReader implements ParkingViolationReader {
 
 	protected String fileName;
