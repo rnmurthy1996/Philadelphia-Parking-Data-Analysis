@@ -24,11 +24,9 @@ public class CsvParkingViolationReader implements ParkingViolationReader {
 	@Override
 	public List<ParkingViolation> getAllParkingViolations() {
 		List<ParkingViolation> parkingViolationList = new ArrayList<ParkingViolation>();
-		
-		String csvFile = fileName;
         String line = "";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
         	Logger.getInstance().log(fileName);
         	

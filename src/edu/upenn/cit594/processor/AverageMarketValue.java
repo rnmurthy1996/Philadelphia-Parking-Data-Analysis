@@ -3,10 +3,7 @@ package edu.upenn.cit594.processor;
 import java.util.HashMap;
 import java.util.List;
 
-import edu.upenn.cit594.data.PopulationCenter;
 import edu.upenn.cit594.data.Property;
-import edu.upenn.cit594.datamanagement.PopulationReader;
-import edu.upenn.cit594.datamanagement.PropertyReader;
 
 /*
  * AverageMarketValue class that calculates the average market value for a given zip code.

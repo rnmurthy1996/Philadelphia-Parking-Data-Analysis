@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.PopulationCenter;
 import edu.upenn.cit594.logging.Logger;
 
@@ -24,11 +23,9 @@ public class PopulationReader {
 	
 	public List<PopulationCenter> getAllPopulations() {
 		List<PopulationCenter> populationList = new ArrayList<PopulationCenter>();
-		
-		String txtFile = fileName;
         String line = "";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(txtFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
         	
         	Logger.getInstance().log(fileName);
 
