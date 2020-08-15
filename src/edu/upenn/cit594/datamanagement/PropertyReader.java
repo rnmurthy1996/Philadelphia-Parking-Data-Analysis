@@ -123,7 +123,7 @@ public class PropertyReader {
         }
         int val;
         if(num && s.length() > 0) {
-        	val = Integer.parseInt(s);
+        	val = (int)Double.parseDouble(s);
         }
         else {
         	val = -1;
