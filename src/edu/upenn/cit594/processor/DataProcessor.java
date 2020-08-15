@@ -69,7 +69,6 @@ public class DataProcessor {
 	
 	public double calculateAverageTotalLiveableArea(String zipCode) {
 		if(averageTotalAreaCache.containsKey(Integer.parseInt(zipCode))) {
-			System.out.println("cache");
 			return averageTotalAreaCache.get(Integer.parseInt(zipCode));
 		}
 		return propProcessor.averageTotalArea(Integer.parseInt(zipCode), averageTotalAreaCache);
@@ -78,7 +77,6 @@ public class DataProcessor {
 	public double calculateTotalResidentialMarketValuePerCapita(String zipCode) {
 		
 		if(mvPerCapitaCache.containsKey(Integer.parseInt(zipCode))) {
-			System.out.println("cache");
 			return mvPerCapitaCache.get(Integer.parseInt(zipCode));
 		}
 		

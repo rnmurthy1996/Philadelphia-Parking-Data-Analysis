@@ -120,7 +120,7 @@ public class PropertyReader {
 
         token += line.charAt(line.length() - 1); // consume last char in input string
         tokens.add(token);
-               
+             
         return tokens;
 	}
 	

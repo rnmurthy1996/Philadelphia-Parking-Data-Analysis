@@ -110,17 +110,17 @@ public class CommandLineUserInterface {
 	
 	private void executeOptionThree() {
 		String zip = readZipCodeSelection();
-		System.out.println(processor.calculateAverageMarketValue(zip));
+		System.out.println((int)processor.calculateAverageMarketValue(zip));
 	}
 
 	private void executeOptionFour() {
 		String zip = readZipCodeSelection();
-		System.out.println(processor.calculateAverageTotalLiveableArea(zip));
+		System.out.println((int)processor.calculateAverageTotalLiveableArea(zip));
 	}
 
 	private void executeOptionFive() {
 		String zip = readZipCodeSelection();
-		System.out.println(processor.calculateTotalResidentialMarketValuePerCapita(zip));
+		System.out.println((int)processor.calculateTotalResidentialMarketValuePerCapita(zip));
 	}
 	
 	private void executeOptionSix() {
