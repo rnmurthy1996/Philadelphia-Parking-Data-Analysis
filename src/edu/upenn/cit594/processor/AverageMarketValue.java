@@ -21,11 +21,13 @@ public class AverageMarketValue implements AverageZipMetric {
 			int zipCount = 0;
 			double totalMarketValue = 0;
 			for(int i = 0; i < properties.size(); i++) {
-				if(properties.get(i).getZipCode() == zipCode && properties.get(i).getMarketValue() != -1) {
+				if(properties.get(i).getZipCode().contentEquals(String.valueOf(zipCode)) && properties.get(i).getMarketValue() != -1) {
 					zipCount++;
 					totalMarketValue += properties.get(i).getMarketValue();
 				}
 			}
+			System.out.println(zipCount);
+			System.out.println(totalMarketValue);
 			double averageMarketValue = totalMarketValue/zipCount;
 			averageMarketValueCache.put(zipCode, averageMarketValue);
 			return averageMarketValue;

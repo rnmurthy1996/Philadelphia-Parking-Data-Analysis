@@ -4,9 +4,9 @@ public class Property {
 	private final int totalLivableArea;
 	private final int marketValue;
 	private final String buildingCode;
-	private final int zipCode;
+	private final String zipCode;
 	
-	public Property(int totalLivableArea, int marketValue, String buildingCode, int zipCode) {
+	public Property(int totalLivableArea, int marketValue, String buildingCode, String zipCode) {
 		this.totalLivableArea = totalLivableArea;
 		this.marketValue = marketValue;
 		this.buildingCode = buildingCode;
@@ -25,7 +25,7 @@ public class Property {
 		return buildingCode;
 	}
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 	

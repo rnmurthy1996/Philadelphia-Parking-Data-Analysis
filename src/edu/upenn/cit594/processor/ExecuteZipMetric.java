@@ -7,7 +7,7 @@ public class ExecuteZipMetric {
 	private AverageZipMetric azm;
 	
 	public ExecuteZipMetric(AverageZipMetric azm){
-	this.azm = azm;
+		this.azm = azm;
 	}
 	
 	public double executeStrategy(int zipCode, HashMap<Integer, Double> averageCache){

@@ -1,8 +1,12 @@
 package edu.upenn.cit594.datamanagement;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +17,7 @@ import edu.upenn.cit594.data.Property;
 public class PropertyReader {
 
 	protected String fileName;
+	public int parseCheck = 0;
 	
 	public PropertyReader(String fileName) {
 		this.fileName = fileName;
@@ -63,7 +68,7 @@ public class PropertyReader {
                 String buildingCode = rowVals.get(bcIndex);
                 
                 String zc = rowVals.get(zcIndex);
-                int zipCode = zipRead(zc);
+                String zipCode = zipRead(zc);
                 
                 Property p = new Property(totalLivableArea, marketValue, buildingCode, zipCode);
                 propertyList.add(p);
@@ -73,6 +78,7 @@ public class PropertyReader {
             e.printStackTrace();
         }
         
+        System.out.println(parseCheck);
         return propertyList;
 	}
 	
@@ -102,8 +108,8 @@ public class PropertyReader {
         	else {
         		rowValsFixed.add(rowVals.get(i));
         	}
-        }
-        
+        }      
+
         return rowValsFixed;
         
 	}
@@ -111,7 +117,7 @@ public class PropertyReader {
 	public int strRead(String s) {
         boolean num = true;
         for(int i = 0; i < s.length(); i++) {
-        	if(!Character.isDigit(s.charAt(i))) {
+        	if(!Character.isDigit(s.charAt(i)) && s.charAt(i) != '.') {
         		num = false;
         	}
         }
@@ -125,24 +131,24 @@ public class PropertyReader {
         return val;
 	}
 	
-	public int zipRead(String zc) {
+	public String zipRead(String zc) {
 		boolean num = true;
-        for(int i = 0; i < zc.length(); i++) {
-        	if(!Character.isDigit(zc.charAt(i))) {
-        		num = false;
-        	}
-        }
-        int zipCode;
-        if(zc.length() == 0 || !num) {
-        	zipCode = -1;
-        }
-        else if(zc.length() < 5) {
-        	int l = zc.length();
-        	zipCode = Integer.parseInt(zc.substring(0,l));
-        }
-        else {
-        	zipCode = Integer.parseInt(zc.substring(0,5));
-        } 
+		String zipCode;
+		if(zc.length() < 5) {
+			zipCode = "-1";
+		}
+		else {
+			for(int i = 0; i < 5; i++) {
+	        	if(!Character.isDigit(zc.charAt(i))) {
+	        		num = false;
+	        	}
+	        }
+			if(num)
+				zipCode = zc.substring(0,5);
+			else
+				zipCode = "-1";
+		}
+      
         return zipCode;
 	}
 }

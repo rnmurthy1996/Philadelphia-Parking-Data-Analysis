@@ -31,7 +31,7 @@ public class PropertyProcessor {
 		
 		double totalMarketValue = 0;
 		for(int i = 0; i < properties.size(); i++) {
-			if(properties.get(i).getZipCode() == zipCode && properties.get(i).getTotalLivableArea() != -1) {
+			if(properties.get(i).getZipCode().contentEquals(String.valueOf(zipCode)) && properties.get(i).getTotalLivableArea() != -1) {
 				totalMarketValue += properties.get(i).getTotalLivableArea();
 			}
 		}
