@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import edu.upenn.cit594.data.ParkingViolation;
@@ -17,7 +18,6 @@ import edu.upenn.cit594.data.Property;
 public class PropertyReader {
 
 	protected String fileName;
-	public int parseCheck = 0;
 	
 	public PropertyReader(String fileName) {
 		this.fileName = fileName;
@@ -25,11 +25,9 @@ public class PropertyReader {
 
 	public List<Property> getAllProperties() {
 		List<Property> propertyList = new ArrayList<Property>();
-		
-		String csvFile = fileName;
         String line = "";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
         	int tlaIndex = -1;
         	int mvIndex = -1;
@@ -54,10 +52,11 @@ public class PropertyReader {
             }
             
         	while((line = br.readLine()) != null) {
-
-                // use comma as separator
-                String[] property = line.split(",");
-                ArrayList<String> rowVals = parser(property);
+        		List<String> rowVals = Arrays.asList(line.split(","));
+        		
+        		if (rowVals.size() != 77) { // easy method broke down so
+        			rowVals = parser(line); // parse by individual char
+        		}
                 
                 String tla = rowVals.get(tlaIndex);
                 int totalLivableArea = strRead(tla);
@@ -78,40 +77,45 @@ public class PropertyReader {
             e.printStackTrace();
         }
         
-        System.out.println(parseCheck);
         return propertyList;
 	}
 	
-	public ArrayList<String> parser(String[] strArr) {
-		ArrayList<String> rowVals = new ArrayList<String>();
-        for(int i = 0; i < strArr.length; i++) {
-        	rowVals.add(strArr[i]);
-        }
-        
-        ArrayList<String> rowValsFixed = new ArrayList<String>();
-        boolean openString = false;
-        for(int i = 0; i < rowVals.size(); i++) {
-        	String token = "";
-        	if(rowVals.get(i).length() > 0 && rowVals.get(i).charAt(0) == '"' 
-        			&& rowVals.get(i).charAt(rowVals.get(i).length() - 1) != '"') {
-        		openString = true;
-        		token += rowVals.get(i);
-        		while(openString && i < rowVals.size()) {
-        			i++;
-        			token += rowVals.get(i);
-        			if(token.charAt(token.length() - 1) == '"') {
-        				openString = false;
-        			}
-        		}
-        		rowValsFixed.add(token);
-        	}
-        	else {
-        		rowValsFixed.add(rowVals.get(i));
-        	}
-        }      
+	public ArrayList<String> parser(String test) {
+		ArrayList<String> tokens = new ArrayList<>();
+        String token = "";
+        boolean insideQuotes = false;
 
-        return rowValsFixed;
-        
+        for (int i = 0; i < test.length() - 1; i++) {
+            char currentChar = test.charAt(i);
+            char nextChar = test.charAt(i + 1);
+
+            if (currentChar == '"' && insideQuotes && nextChar == ',') {
+                token += currentChar;
+                tokens.add(token);
+                i++; // skip next comma so we don't add another "" token
+                insideQuotes = false;
+                token = "";
+            } else if (currentChar == '"') {
+            	if (insideQuotes) {
+            		insideQuotes = false;
+            	} else {
+            		insideQuotes = true;
+            	}
+                token += currentChar;
+            } else if (insideQuotes && currentChar == ',') { // treat like any other char instead of splitting tokens
+                token += currentChar;
+            } else if (currentChar == ',') {
+                tokens.add(token);
+                token = "";
+            } else {
+                token += currentChar;
+            }
+        }
+
+        token += test.charAt(test.length() - 1); // consume last char in input string
+        tokens.add(token);
+               
+        return tokens;
 	}
 	
 	public int strRead(String s) {
