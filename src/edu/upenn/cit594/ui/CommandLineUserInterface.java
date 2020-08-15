@@ -63,7 +63,7 @@ public class CommandLineUserInterface {
 		System.out.println("\t3: Average Market Value");
 		System.out.println("\t4: Average Total Liveable Area");
 		System.out.println("\t5: Total Residential Market Value Per Capita");
-		System.out.println("\t6: TBD");
+		System.out.println("\t6: Violations Per Capita and Commercial Percentage");
 		
 		try {
 			userInput = inputStream.nextInt();
@@ -118,6 +118,7 @@ public class CommandLineUserInterface {
 	
 	private void executeOptionSix() {
 		String zip = readZipCodeSelection();
+		System.out.println(processor.calculateViolationsPerCapitaAndCommercialPercentage(zip));
 	}
 
 }

@@ -1,5 +1,6 @@
 package edu.upenn.cit594.processor;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -35,5 +36,16 @@ public class ParkingViolationProcessor {
 		return totalFinesByZipCode;
 	}
 	
+	public int getTotalViolations(String zipCode) {
+		int violationCount = 0;
+		
+		for (ParkingViolation pv : violations) {
+			if (pv.getZipCode().equals(zipCode)) {
+				violationCount++;
+			}
+		}
+		
+		return violationCount;
+	}
 }
 

@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import edu.upenn.cit594.data.ParkingViolation;
@@ -21,7 +22,6 @@ import edu.upenn.cit594.data.Property;
 public class PropertyReader {
 
 	protected String fileName;
-	public int parseCheck = 0;
 	
 	public PropertyReader(String fileName) {
 		this.fileName = fileName;
@@ -29,15 +29,13 @@ public class PropertyReader {
 
 	public List<Property> getAllProperties() {
 		List<Property> propertyList = new ArrayList<Property>();
-		
-		String csvFile = fileName;
         String line = "";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
         	int tlaIndex = -1;
         	int mvIndex = -1;
-        	int bcIndex = -1;
+        	int ccIndex = -1;
         	int zcIndex = -1;
         	
             String headerLine = br.readLine();
@@ -49,8 +47,8 @@ public class PropertyReader {
             	if(headerVals[i].contentEquals("market_value")) {
             		mvIndex = i;
             	}
-            	if(headerVals[i].contentEquals("building_code")) {
-            		bcIndex = i;
+            	if(headerVals[i].contentEquals("category_code")) {
+            		ccIndex = i;
             	}
             	if(headerVals[i].contentEquals("zip_code")) {
             		zcIndex = i;
@@ -58,10 +56,11 @@ public class PropertyReader {
             }
             
         	while((line = br.readLine()) != null) {
-
-                // use comma as separator
-                String[] property = line.split(",");
-                ArrayList<String> rowVals = parser(property);
+        		List<String> rowVals = Arrays.asList(line.split(","));
+        		
+        		if (rowVals.size() != 77) { // easy method broke down so
+        			rowVals = parser(line); // parse by individual char
+        		}
                 
                 String tla = rowVals.get(tlaIndex);
                 int totalLivableArea = strRead(tla);
@@ -69,12 +68,13 @@ public class PropertyReader {
                 String mv = rowVals.get(mvIndex);
                 int marketValue = strRead(mv);
                 
-                String buildingCode = rowVals.get(bcIndex);
+                String categoryCodeStr = rowVals.get(ccIndex);
+                int categoryCode = categoryCodeStr.length() == 0 ? -1 : Integer.parseInt(categoryCodeStr);
                 
                 String zc = rowVals.get(zcIndex);
                 String zipCode = zipRead(zc);
                 
-                Property p = new Property(totalLivableArea, marketValue, buildingCode, zipCode);
+                Property p = new Property(totalLivableArea, marketValue, categoryCode, zipCode);
                 propertyList.add(p);
         	}
         	
@@ -82,41 +82,46 @@ public class PropertyReader {
             e.printStackTrace();
         }
         
-        System.out.println(parseCheck);
         return propertyList;
 	}
 	
-	//Method to parse each line of properties.csv
-	public ArrayList<String> parser(String[] strArr) {
-		ArrayList<String> rowVals = new ArrayList<String>();
-        for(int i = 0; i < strArr.length; i++) {
-        	rowVals.add(strArr[i]);
-        }
-        
-        ArrayList<String> rowValsFixed = new ArrayList<String>();
-        boolean openString = false;
-        for(int i = 0; i < rowVals.size(); i++) {
-        	String token = "";
-        	if(rowVals.get(i).length() > 0 && rowVals.get(i).charAt(0) == '"' 
-        			&& rowVals.get(i).charAt(rowVals.get(i).length() - 1) != '"') {
-        		openString = true;
-        		token += rowVals.get(i);
-        		while(openString && i < rowVals.size()) {
-        			i++;
-        			token += rowVals.get(i);
-        			if(token.charAt(token.length() - 1) == '"') {
-        				openString = false;
-        			}
-        		}
-        		rowValsFixed.add(token);
-        	}
-        	else {
-        		rowValsFixed.add(rowVals.get(i));
-        	}
-        }      
 
-        return rowValsFixed;
-        
+	public ArrayList<String> parser(String line) {
+		ArrayList<String> tokens = new ArrayList<>();
+        String token = "";
+        boolean insideQuotes = false;
+
+        for (int i = 0; i < line.length() - 1; i++) {
+            char currentChar = line.charAt(i);
+            char nextChar = line.charAt(i + 1);
+
+            if (currentChar == '"' && insideQuotes && nextChar == ',') {
+                token += currentChar;
+                tokens.add(token);
+                i++; // skip next comma so we don't add another "" token
+                insideQuotes = false;
+                token = "";
+            } else if (currentChar == '"') {
+            	if (insideQuotes) {
+            		insideQuotes = false;
+            	} else {
+            		insideQuotes = true;
+            	}
+                token += currentChar;
+            } else if (insideQuotes && currentChar == ',') { // treat like any other char instead of splitting tokens
+                token += currentChar;
+            } else if (currentChar == ',') {
+                tokens.add(token);
+                token = "";
+            } else {
+                token += currentChar;
+            }
+        }
+
+        token += line.charAt(line.length() - 1); // consume last char in input string
+        tokens.add(token);
+               
+        return tokens;
 	}
 	
 	//Method used to read in market value or total livable area from csv file and convert it to format we want.
@@ -129,7 +134,7 @@ public class PropertyReader {
         }
         int val;
         if(num && s.length() > 0) {
-        	val = Integer.parseInt(s);
+        	val = (int)Double.parseDouble(s);
         }
         else {
         	val = -1;

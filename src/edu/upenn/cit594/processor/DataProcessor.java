@@ -19,6 +19,8 @@ public class DataProcessor {
 	private HashMap<Integer, Double> averageMarketValueCache = new HashMap<Integer, Double>();
 	private HashMap<Integer, Double> averageTotalAreaCache = new HashMap<Integer, Double>();
 	private HashMap<Integer, Double> mvPerCapitaCache = new HashMap<Integer, Double>();
+	private Map<String, Double> violationsPerCapitaCache = new HashMap<String, Double>();
+	private Map<String, Double> commercialPercentageCache = new HashMap<String, Double>();
 	
 	
 	public DataProcessor(ParkingViolationProcessor pvProcessor, PropertyProcessor propProcessor,
@@ -94,6 +96,33 @@ public class DataProcessor {
 		double totalMarketValuePerCapita = totalMarketValue/totalPopulation;
 		mvPerCapitaCache.put(Integer.parseInt(zipCode), totalMarketValuePerCapita);
 		return totalMarketValuePerCapita;
+	}
+	
+	public String calculateViolationsPerCapitaAndCommercialPercentage(String zipCode) {
 		
+		double violationsPerCapita = 0;
+		double commercialPercentage = 0;
+		
+		if (violationsPerCapitaCache.containsKey(zipCode)) {
+			violationsPerCapita = violationsPerCapitaCache.get(zipCode);
+		} else {
+			int violations = pvProcessor.getTotalViolations(zipCode);
+			int population = popProcessor.getPopulation(zipCode);
+			if (population == 0) {  // prevent div by 0 errors
+				violationsPerCapita = 0;
+			} else {
+				violationsPerCapita = (double)violations / population;
+			}
+			violationsPerCapitaCache.put(zipCode, violationsPerCapita);
+		}
+		
+		if (commercialPercentageCache.containsKey(zipCode)) {
+			commercialPercentage = commercialPercentageCache.get(zipCode);
+		} else {
+			commercialPercentage = propProcessor.getCommercialPercentage(zipCode);
+			commercialPercentageCache.put(zipCode, commercialPercentage);
+		}
+		
+		return String.format("The violations per capita is %.04f and commercial percentage is %.02f%%", violationsPerCapita, commercialPercentage * 100);
 	}
 }
