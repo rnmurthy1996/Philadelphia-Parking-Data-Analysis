@@ -13,28 +13,6 @@ public class PropertyProcessor {
 		properties = propReader.getAllProperties();
 	}
 		
-	public double average(String zipCode, AverageZipMetric strategy) {
-		int zipCount = 0;
-		double total = 0;
-		
-		for (Property property : properties) {
-			if(property.getZipCode().equals(zipCode) && strategy.getValue(property) != -1) {
-				zipCount++;
-				total += strategy.getValue(property);
-			}
-		}
-		
-		return zipCount == 0 ? 0 : total / zipCount;
-	}
-	
-	public double averageMarketValue(String zipCode) {
-		return average(zipCode, new AverageMarketValue());		
-	}
-	
-	public double averageTotalArea(String zipCode) {
-		return average(zipCode, new AverageTotalArea());
-	}
-	
 	public double getTotalMarketValue(String zipCode) {
 		
 		double totalMarketValue = 0;
@@ -68,5 +46,49 @@ public class PropertyProcessor {
 		
 		return (double)commercialCount / totalCount;
 	}
+	
+	
+	/*--------------Strategy pattern implementation--------------*/
+	
+	// interface & classes required for the pattern
+	public interface PropertyStrategy {
+		public int getValue(Property p);
+	}
+	
+	public class AverageMarketValue implements PropertyStrategy {
+		public int getValue(Property p) {
+			return p.getMarketValue();
+		}
+	}
+	
+	public class AverageTotalArea implements PropertyStrategy {
+		public int getValue(Property p) {
+			return p.getTotalLivableArea();
+		}
+	}
+	
+	// general method
+	public double average(String zipCode, PropertyStrategy strategy) {
+		int zipCount = 0;
+		double total = 0;
+		
+		for (Property property : properties) {
+			if(property.getZipCode().equals(zipCode) && strategy.getValue(property) != -1) {
+				zipCount++;
+				total += strategy.getValue(property);
+			}
+		}
+		
+		return zipCount == 0 ? 0 : total / zipCount;
+	}
+	
+	public double averageMarketValue(String zipCode) {
+		return average(zipCode, new AverageMarketValue());		
+	}
+	
+	public double averageTotalArea(String zipCode) {
+		return average(zipCode, new AverageTotalArea());
+	}
+		
 }
 
