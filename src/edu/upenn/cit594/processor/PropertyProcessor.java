@@ -1,6 +1,5 @@
 package edu.upenn.cit594.processor;
 
-import java.util.HashMap;
 import java.util.List;
 
 import edu.upenn.cit594.data.Property;
@@ -13,18 +12,27 @@ public class PropertyProcessor {
 	public PropertyProcessor(PropertyReader propReader) {
 		properties = propReader.getAllProperties();
 	}
-	
-	public double averageMarketValue(String zipCode, HashMap<String, Double> averageMarketValueCache) {
 		
-		ExecuteZipMetric execute = new ExecuteZipMetric(new AverageMarketValue(properties));
-		return execute.executeStrategy(zipCode, averageMarketValueCache);
+	public double average(String zipCode, AverageZipMetric strategy) {
+		int zipCount = 0;
+		double total = 0;
 		
+		for (Property property : properties) {
+			if(property.getZipCode().equals(zipCode) && strategy.getValue(property) != -1) {
+				zipCount++;
+				total += strategy.getValue(property);
+			}
+		}
+		
+		return zipCount == 0 ? 0 : total / zipCount;
 	}
 	
-	public double averageTotalArea(String zipCode, HashMap<String, Double> averageTotalAreaCache) {
-		
-		ExecuteZipMetric execute = new ExecuteZipMetric(new AverageTotalArea(properties));
-		return execute.executeStrategy(zipCode, averageTotalAreaCache);
+	public double averageMarketValue(String zipCode) {
+		return average(zipCode, new AverageMarketValue());		
+	}
+	
+	public double averageTotalArea(String zipCode) {
+		return average(zipCode, new AverageTotalArea());
 	}
 	
 	public double getTotalMarketValue(String zipCode) {

@@ -16,9 +16,9 @@ public class DataProcessor {
 	// caches
 	private int totalPopulation = -1;
 	private Map<String, Double> finesPerCapitaCache;
-	private HashMap<String, Double> averageMarketValueCache = new HashMap<String, Double>();
-	private HashMap<String, Double> averageTotalAreaCache = new HashMap<String, Double>();
-	private HashMap<String, Double> mvPerCapitaCache = new HashMap<String, Double>();
+	private Map<String, Double> averageMarketValueCache = new HashMap<String, Double>();
+	private Map<String, Double> averageTotalAreaCache = new HashMap<String, Double>();
+	private Map<String, Double> mvPerCapitaCache = new HashMap<String, Double>();
 	private Map<String, Double> violationsPerCapitaCache = new HashMap<String, Double>();
 	private Map<String, Double> commercialPercentageCache = new HashMap<String, Double>();
 	
@@ -64,14 +64,20 @@ public class DataProcessor {
 		if(averageMarketValueCache.containsKey(zipCode)) {
 			return averageMarketValueCache.get(zipCode);
 		}
-		return propProcessor.averageMarketValue(zipCode, averageMarketValueCache);
+		
+		double amv = propProcessor.averageMarketValue(zipCode);
+		averageMarketValueCache.put(zipCode, amv);
+		return amv;
 	}
 	
 	public double calculateAverageTotalLiveableArea(String zipCode) {
 		if(averageTotalAreaCache.containsKey(zipCode)) {
 			return averageTotalAreaCache.get(zipCode);
 		}
-		return propProcessor.averageTotalArea(zipCode, averageTotalAreaCache);
+		
+		double ata = propProcessor.averageTotalArea(zipCode); 
+		averageTotalAreaCache.put(zipCode, ata);
+		return ata;
 	}
 	
 	public double calculateTotalResidentialMarketValuePerCapita(String zipCode) {

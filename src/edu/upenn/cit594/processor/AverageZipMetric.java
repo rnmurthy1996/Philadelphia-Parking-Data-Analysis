@@ -1,6 +1,6 @@
 package edu.upenn.cit594.processor;
 
-import java.util.HashMap;
+import edu.upenn.cit594.data.Property;
 
 /*
  * AverageZipMetric interface that defines getZipMetric method 
@@ -8,5 +8,5 @@ import java.util.HashMap;
  */
 
 public interface AverageZipMetric {
-	public double getZipMetric(String zipCode, HashMap<String, Double> cache);
+	public int getValue(Property p);
 }
