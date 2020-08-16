@@ -27,7 +27,7 @@ public class PopulationProcessor {
 	
 	public int getPopulation(String zipCode) {
 		for (PopulationCenter p : populationCenters) {
-			if (String.valueOf(p.getZipCode()).equals(zipCode)) {
+			if (p.getZipCode().equals(zipCode)) {
 				return p.getPopulation();
 			}
 		}

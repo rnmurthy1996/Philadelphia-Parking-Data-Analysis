@@ -87,17 +87,11 @@ public class DataProcessor {
 		}
 		
 		double totalMarketValue = propProcessor.getTotalMarketValue(zipCode);
+		int totalPopulation = popProcessor.getPopulation(zipCode);
 		
-		int totalPopulation = 0;
-		List<PopulationCenter> populationCenters = popProcessor.getPopulationCenters();
-		for (PopulationCenter pc : populationCenters) {
-			String zc = pc.getZipCode();
-			if(zc.contentEquals(zipCode)) {
-				totalPopulation = pc.getPopulation();
-			}
-		}
-		double totalMarketValuePerCapita = totalMarketValue/totalPopulation;
+		double totalMarketValuePerCapita = totalMarketValue /totalPopulation;
 		mvPerCapitaCache.put(zipCode, totalMarketValuePerCapita);
+		
 		return totalMarketValuePerCapita;
 	}
 	
