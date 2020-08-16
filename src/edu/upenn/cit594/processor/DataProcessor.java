@@ -7,6 +7,11 @@ import java.util.TreeMap;
 
 import edu.upenn.cit594.data.PopulationCenter;
 
+/*
+ *  Aggregates and operates on data from all 3 sources: parking violations, properties, and population.
+ *  Also caches prior calculations to avoid recomputing.
+ */
+
 public class DataProcessor {
 
 	private ParkingViolationProcessor pvProcessor;

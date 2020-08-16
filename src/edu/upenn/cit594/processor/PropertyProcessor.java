@@ -5,6 +5,10 @@ import java.util.List;
 import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.datamanagement.PropertyReader;
 
+/*
+ * Aggregates and summarizes property data; utilizes strategy pattern for average calculations 
+ */
+
 public class PropertyProcessor {
 
 	private List<Property> properties;

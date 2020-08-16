@@ -5,6 +5,10 @@ import java.util.List;
 import edu.upenn.cit594.data.PopulationCenter;
 import edu.upenn.cit594.datamanagement.PopulationReader;
 
+/*
+ * Aggregates and summarizes population data 
+ */
+
 public class PopulationProcessor {
 	
 	private List<PopulationCenter> populationCenters;

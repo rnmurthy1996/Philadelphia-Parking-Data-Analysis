@@ -9,6 +9,10 @@ import java.util.Scanner;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.DataProcessor;
 
+/*
+ * Presents user with various query options, obtains appropriate data when requested, and presents to user
+ */
+
 public class CommandLineUserInterface {
 	
 	private DataProcessor processor;
@@ -20,6 +24,7 @@ public class CommandLineUserInterface {
 		inputStream = new Scanner(System.in);
 	}
 	
+	// main event loop
 	public void run() {
 		int selection = -1;
 		
@@ -91,6 +96,8 @@ public class CommandLineUserInterface {
 		Logger.getInstance().log(zipCode);
 		return zipCode;
 	}
+	
+	// private helpers corresponding to user choices
 	
 	private void executeOptionOne() {
 		int population = processor.calculateTotalPopulation();

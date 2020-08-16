@@ -39,13 +39,10 @@ public class JsonParkingViolationReader implements ParkingViolationReader {
 			tweets = (JSONArray)parser.parse(new FileReader(fileName));
 			Logger.getInstance().log(fileName);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

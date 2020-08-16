@@ -7,6 +7,10 @@ import java.util.TreeMap;
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.datamanagement.ParkingViolationReader;
 
+/*
+ * Aggregates and summarizes parking violations 
+ */
+
 public class ParkingViolationProcessor {
 	
 	private List<ParkingViolation> violations;

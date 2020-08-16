@@ -3,6 +3,10 @@ package edu.upenn.cit594.logging;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
+/*
+ *  Leverages singleton pattern to create a single instance for application-wide logging
+ */
+
 public class Logger {
 	public static String logName;
 	private static Logger instance;
