@@ -1,4 +1,4 @@
-# OpenDataPhilly Analysis
+# OpenDataPhilly Analysis - CIT 594 Final Project
 ## Project Introduction
 
 This is a data analysis project that utilizes parking violation data and property data from the Philadelphia area in order to output certain metrics about the region. The files used to procure the data are parking.csv, parking.json, population.txt, and properties.csv. All datasets can be found at [OpenDataPhilly](https://www.opendataphilly.org/).
