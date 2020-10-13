@@ -16,13 +16,13 @@ You will need a way to run the program which is written in Java. We recommend an
 
 When running the program, you will be presented with the six options below:
 
-Option 0: Quit the program  
-Option 1: Output the total population for all zipcodes  
-Option 2: Output the parking violation fines per capita for each zip code  
-Option 3: Output the average property market value in the zipcode chosen by the user  
-Option 4: Output the average total livable area per property in the zipcode chosen by the user  
-Option 5: Output the residential market value per capita in the zipcode chosen by the user  
-Option 6: Output the parking violations per capita and percentage of properties that are commercial in the zipcode chosen by the user  
+**Option 0**: Quit the program  
+**Option 1**: Output the total population for all zipcodes  
+**Option 2**: Output the parking violation fines per capita for each zip code  
+**Option 3**: Output the average property market value in the zipcode chosen by the user  
+**Option 4**: Output the average total livable area per property in the zipcode chosen by the user  
+**Option 5**: Output the residential market value per capita in the zipcode chosen by the user  
+**Option 6**: Output the parking violations per capita and percentage of properties that are commercial in the zipcode chosen by the user  
 
 ## Built With
 * IntelliJ IDEA - Java IDE used for development
